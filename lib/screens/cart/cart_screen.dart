@@ -21,29 +21,31 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         centerTitle: true,
         // actions: [],
       ),
-      body: Container(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          children: [
-            Column(
-              children: cartProducts.map((product){
-                return Container(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Row(
-                    children: [
-                      Image.asset(product.image, width: 60, height: 60,),
-                      const SizedBox(width: 10,),
-                      Text(product.title),
-                      const Expanded(child: SizedBox()),
-                      Text('USD ${product.price}'),
-                    ],
-                  ),
-                );
-              }).toList(), // output cart products here
-            )
-
-            // output totals here
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            children: [
+              Column(
+                children: cartProducts.map((product){
+                  return Container(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Row(
+                      children: [
+                        Image.asset(product.image, width: 60, height: 60,),
+                        const SizedBox(width: 10,),
+                        Text(product.title),
+                        const Expanded(child: SizedBox()),
+                        Text('USD ${product.price}'),
+                      ],
+                    ),
+                  );
+                }).toList(), // output cart products here
+              )
+        
+              // output totals here
+            ],
+          ),
         ),
       ),
     );
