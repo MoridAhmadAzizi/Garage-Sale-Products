@@ -14,7 +14,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cartProducts = ref.watch(cartNotifierProvider);
+    final cartProducts = ref.watch(cartProvider);
+    final total = ref.watch(cartTotalProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Cart'),
@@ -27,13 +28,13 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           child: Column(
             children: [
               Column(
-                children: cartProducts.map((product){
+                children: cartProducts.map((product) {
                   return Container(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: Row(
                       children: [
-                        Image.asset(product.image, width: 60, height: 60,),
-                        const SizedBox(width: 10,),
+                        Image.asset(product.image, width: 60, height: 60),
+                        const SizedBox(width: 10),
                         Text(product.title),
                         const Expanded(child: SizedBox()),
                         Text('USD ${product.price}'),
@@ -41,8 +42,29 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                     ),
                   );
                 }).toList(), // output cart products here
-              )
-        
+              ),
+              if(total != 0)
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'TOTAL PRICE - USD $total',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
               // output totals here
             ],
           ),
